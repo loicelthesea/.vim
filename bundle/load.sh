@@ -1,0 +1,11 @@
+git clone https://github.com/tpope/vim-surround
+git clone https://github.com/pangloss/vim-javascript.git
+git clone https://github.com/Shougo/vimproc.vim.git
+git clone https://github.com/shougo/unite.vim.git
+git clone https://github.com/duythinht/inori
+git clone https://github.com/mattn/emmet-vim.git
+git clone https://github.com/tomasr/molokai
+git clone https://github.com/sjl/badwolf
+git clone https://github.com/romainl/Apprentice
+git clone https://github.com/scrooloose/syntastic.git
+git clone https://github.com/andrwb/vim-lapis256
