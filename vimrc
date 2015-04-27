@@ -37,10 +37,10 @@ let g:unite_enable_start_insert=1
 let g:unite_source_history_yank_enable=1
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 
-nnoremap <leader>p :Unite -no-split -buffer-name=file_rec/async <cr> 
-nnoremap <leader>/ :Unite -no-split -buffer-name=grep:. <cr>
-nnoremap <leader>y :Unite -no-split -buffer-name=history/yank <cr>
-nnoremap <leader>b :Unite -no-split -buffer-name=buffer <cr>
+nnoremap <leader>p :Unite file_rec/async<cr> 
+nnoremap <leader>/ :Unite grep:.<cr>
+nnoremap <leader>y :Unite history/yank<cr>
+nnoremap <leader>b :Unite buffer<cr>
 
 
 " #### VIM GUI ####
