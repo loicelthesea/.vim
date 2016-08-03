@@ -98,7 +98,7 @@ imap <C-Space> <C-x><C-o>
 
 
 " #### Colors and Fonts ####
-set guifont=inconsolata\ 9 
+set guifont=inconsolata\ 12 
 set guitablabel=%M\ %t
 
 set t_Co=256
@@ -110,9 +110,10 @@ if has("gui_running")
   set guioptions-=e " 
   set guioptions-=r " No Right scroll bar
   set guioptions-=L " No Left scroll bar
-  colorscheme molokai
+  colorscheme gotham
 else
   colorscheme molokai
+set-window-option -g window-status-current-bg yellow
 endif
 
 
