@@ -45,8 +45,8 @@ nnoremap <leader>b :Unite buffer<cr>
 
 " #### VIM GUI ####
 
-set cmdheight=1
 set relativenumber
+set cmdheight=1
 set wildchar=<Tab> wildmenu wildmode=full
 
 " Ignore compiled files
@@ -113,7 +113,7 @@ if has("gui_running")
   colorscheme gotham
 else
   colorscheme molokai
-set-window-option -g window-status-current-bg yellow
+  "set-window-option -g window-status-current-bg yellow
 endif
 
 
