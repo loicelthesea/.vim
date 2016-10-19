@@ -23,29 +23,14 @@ syntax enable
 set autoread
 set hidden
 
-let mapleader = "\<Space>"
-let g:mapleader = "\<Space>"
-
-
-" #### Plugins ####
-
-" Pathogen
-execute pathogen#infect()
-
-" Unite
-let g:unite_enable_start_insert=1
-let g:unite_source_history_yank_enable=1
-call unite#filters#matcher_default#use(['matcher_fuzzy'])
-
-nnoremap <leader>p :Unite file_rec/async<cr> 
-nnoremap <leader>/ :Unite grep:.<cr>
-nnoremap <leader>y :Unite history/yank<cr>
-nnoremap <leader>b :Unite buffer<cr>
-
+let mapleader = ","
+let g:mapleader = ","
+inoremap jk <esc>
 
 " #### VIM GUI ####
 
 set relativenumber
+set cursorline
 set cmdheight=1
 set wildchar=<Tab> wildmenu wildmode=full
 
@@ -65,15 +50,21 @@ set backspace=eol,start,indent
 set showmatch 
 set matchtime=1
 
+" Set folding
+set foldenable
+set foldlevelstart=2
+set foldnestmax=5
+set foldmethod=indent
+
 " Sets minimum Window Width and Heigth to 0
 set winminheight=0 winminwidth=0
 
 " Statusline
 set laststatus=2              "always visible
-" set statusline=%02n:%.80F     "buffer : 80maxch-filepath
-" set statusline+=%=            "switch to right
-" set statusline+=%y            "Filetype
-" set statusline+=(%c,%l/%L)    "(cursor,line/total)
+set statusline=%02n:%.80F     "buffer : 80maxch-filepath
+set statusline+=%=            "switch to right
+set statusline+=(%c,%l/%L)    "(cursor,line/total)
+set statusline+=%y            "Filetype
 
 " #### Search & Replace
 set ignorecase
@@ -110,9 +101,9 @@ if has("gui_running")
   set guioptions-=e " 
   set guioptions-=r " No Right scroll bar
   set guioptions-=L " No Left scroll bar
-  colorscheme gotham
+  colorscheme hybrid
 else
-  colorscheme molokai
+  colorscheme hybrid
   "set-window-option -g window-status-current-bg yellow
 endif
 
@@ -169,4 +160,23 @@ map <C-j> <C-W>j<C-W>_
 map <C-k> <C-W>k<C-W>_
 map <C-h> <C-W>h<C-W>\|
 map <C-l> <C-W>l<C-W>\|
+
+" Easy access to :tags with <F9> (use <C-MAJ-$> on azerty)
+nmap <F9> <C-]>
+map! <F9> <C-]>
+
+" #### Plugins ####
+
+" Pathogen
+execute pathogen#infect()
+
+" Unite
+" let g:unite_enable_start_insert=1
+" let g:unite_source_history_yank_enable=1
+" call unite#filters#matcher_default#use(['matcher_fuzzy'])
+
+" nnoremap <leader>p :Unite file_rec/async<cr> 
+" nnoremap <leader>/ :Unite grep:.<cr>
+" nnoremap <leader>y :Unite history/yank<cr>
+" nnoremap <leader>b :Unite buffer<cr>
 
