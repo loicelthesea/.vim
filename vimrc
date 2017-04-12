@@ -1,3 +1,6 @@
+" #### Vimrc inspirations ####
+" https://dougblack.io/words/a-good-vimrc.html
+
 " Source a global configuration file if available
 if filereadable("/etc/vim/vimrc.local")
   source /etc/vim/vimrc.local
@@ -78,11 +81,23 @@ map <silent> <leader><CR> :set hlsearch! hlsearch?<CR>
 " #### Completion
 
 " Enable omni completion.
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType css,less setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+augroup completion
+  autocmd!
+  autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+  autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+  autocmd FileType css,less setlocal omnifunc=csscomplete#CompleteCSS
+  autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+  autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+  autocmd FileType python setlocal commentstring=#\ %s
+  autocmd FileType php setlocal expandtab
+  autocmd FileType php setlocal list
+  autocmd FileType php setlocal listchars=tab:+\ ,eol:-
+  autocmd FileType php setlocal formatprg=par\ -w80\ -T4
+  autocmd FileType ruby setlocal tabstop=2
+  autocmd FileType ruby setlocal shiftwidth=2
+  autocmd FileType ruby setlocal softtabstop=2
+  autocmd FileType ruby setlocal commentstring=#\ %s
+augroup END
 
 " Remap Ctrl Space for auto completion
 imap <C-Space> <C-x><C-o>
@@ -103,7 +118,7 @@ if has("gui_running")
   set guioptions-=L " No Left scroll bar
   colorscheme hybrid
 else
-  colorscheme hybrid
+  colorscheme delek
   "set-window-option -g window-status-current-bg yellow
 endif
 
@@ -154,6 +169,10 @@ set noequalalways
 " Treat long lines as break lines (useful when moving around in them)
 map j gj
 map k gk
+
+" Move to beginning/end of line
+nnoremap B ^
+nnoremap E $
 
 " Smart way to move between windows
 map <C-j> <C-W>j<C-W>_
