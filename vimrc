@@ -33,7 +33,7 @@ inoremap jk <esc>
 " #### VIM GUI ####
 
 set relativenumber
-set cursorline
+" set cursorline
 set cmdheight=1
 set wildchar=<Tab> wildmenu wildmode=full
 
@@ -77,18 +77,25 @@ set magic
 
 map <silent> <leader><CR> :set hlsearch! hlsearch?<CR>
 
+" ####  Commenting blocks of code.
+augroup commenting
+  autocmd FileType c,cpp,java,scala let b:comment_leader = '// '
+  autocmd FileType sh,ruby,python   let b:comment_leader = '# '
+  autocmd FileType conf,fstab       let b:comment_leader = '# '
+  autocmd FileType tex              let b:comment_leader = '% '
+  autocmd FileType mail             let b:comment_leader = '> '
+  autocmd FileType vim              let b:comment_leader = '" '
+  autocmd FileType sh,ruby,python      setlocal commentstring=#\ %s
+augroup END
 
 " #### Completion
-
-" Enable omni completion.
 augroup completion
   autocmd!
   autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
   autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
   autocmd FileType css,less setlocal omnifunc=csscomplete#CompleteCSS
   autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-  autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-  autocmd FileType python setlocal commentstring=#\ %s
+  autocmd FileType python setlocal omnifunc=python3complete#Complete
   autocmd FileType php setlocal expandtab
   autocmd FileType php setlocal list
   autocmd FileType php setlocal listchars=tab:+\ ,eol:-
@@ -96,7 +103,6 @@ augroup completion
   autocmd FileType ruby setlocal tabstop=2
   autocmd FileType ruby setlocal shiftwidth=2
   autocmd FileType ruby setlocal softtabstop=2
-  autocmd FileType ruby setlocal commentstring=#\ %s
 augroup END
 
 " Remap Ctrl Space for auto completion
@@ -118,7 +124,7 @@ if has("gui_running")
   set guioptions-=L " No Left scroll bar
   colorscheme hybrid
 else
-  colorscheme delek
+  colorscheme molokai
   "set-window-option -g window-status-current-bg yellow
 endif
 
