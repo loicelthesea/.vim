@@ -26,14 +26,14 @@ syntax enable
 set autoread
 set hidden
 
-let mapleader = ","
-let g:mapleader = ","
-inoremap jk <esc>
+" let mapleader = ","
+" let g:mapleader = ","
+inoremap jj <esc>
 
 " #### VIM GUI ####
 
 set relativenumber
-" set cursorline
+set cursorline
 set cmdheight=1
 set wildchar=<Tab> wildmenu wildmode=full
 
@@ -54,10 +54,10 @@ set showmatch
 set matchtime=1
 
 " Set folding
-set foldenable
-set foldlevelstart=2
-set foldnestmax=5
-set foldmethod=indent
+" set foldenable
+" set foldlevelstart=3
+" set foldnestmax=5
+" set foldmethod=indent
 
 " Sets minimum Window Width and Heigth to 0
 set winminheight=0 winminwidth=0
@@ -79,30 +79,26 @@ map <silent> <leader><CR> :set hlsearch! hlsearch?<CR>
 
 " ####  Commenting blocks of code.
 augroup commenting
-  autocmd FileType c,cpp,java,scala let b:comment_leader = '// '
-  autocmd FileType sh,ruby,python   let b:comment_leader = '# '
-  autocmd FileType conf,fstab       let b:comment_leader = '# '
-  autocmd FileType tex              let b:comment_leader = '% '
-  autocmd FileType mail             let b:comment_leader = '> '
-  autocmd FileType vim              let b:comment_leader = '" '
-  autocmd FileType sh,ruby,python      setlocal commentstring=#\ %s
+  autocmd FileType c,cpp,java,scala   let b:comment_leader = '// '
+  autocmd FileType sh,ruby,python,php let b:comment_leader = '# '
+  autocmd FileType conf,fstab         let b:comment_leader = '# '
+  autocmd FileType tex                let b:comment_leader = '% '
+  autocmd FileType mail               let b:comment_leader = '> '
+  autocmd FileType vim                let b:comment_leader = '" '
+  autocmd FileType sh,ruby,python,php setlocal commentstring=#\ %s
 augroup END
 
 " #### Completion
+
+set completeopt=longest,menuone
 augroup completion
   autocmd!
-  autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-  autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-  autocmd FileType css,less setlocal omnifunc=csscomplete#CompleteCSS
-  autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-  autocmd FileType python setlocal omnifunc=python3complete#Complete
-  autocmd FileType php setlocal expandtab
-  autocmd FileType php setlocal list
-  autocmd FileType php setlocal listchars=tab:+\ ,eol:-
-  autocmd FileType php setlocal formatprg=par\ -w80\ -T4
-  autocmd FileType ruby setlocal tabstop=2
-  autocmd FileType ruby setlocal shiftwidth=2
-  autocmd FileType ruby setlocal softtabstop=2
+  autocmd FileType xml            setlocal omnifunc=xmlcomplete#CompleteTags
+  autocmd FileType html,markdown  setlocal omnifunc=htmlcomplete#CompleteTags
+  autocmd FileType css,less       setlocal omnifunc=csscomplete#CompleteCSS
+  autocmd FileType javascript     setlocal omnifunc=javascriptcomplete#CompleteJS
+  autocmd FileType python         setlocal omnifunc=python3complete#Complete
+  autocmd FileType php            setlocal omnifunc=phpcomplete#CompletePHP
 augroup END
 
 " Remap Ctrl Space for auto completion
@@ -110,10 +106,9 @@ imap <C-Space> <C-x><C-o>
 
 
 " #### Colors and Fonts ####
+
 set guifont=inconsolata\ 12 
 set guitablabel=%M\ %t
-
-set t_Co=256
 set background=dark
 if has("gui_running")
   set lines=999 columns=999
@@ -122,10 +117,10 @@ if has("gui_running")
   set guioptions-=e " 
   set guioptions-=r " No Right scroll bar
   set guioptions-=L " No Left scroll bar
-  colorscheme hybrid
-else
   colorscheme molokai
-  "set-window-option -g window-status-current-bg yellow
+else
+  set t_Co=256
+  colorscheme molokai
 endif
 
 
@@ -136,8 +131,11 @@ set encoding=utf8
 set ffs=unix,dos,mac
 
 " Use backup & swap but set them in a different folder
-set backupdir=~/.vimtmp//,./.backup//,.,/tmp//
-set directory=~/.vimtmp//,./.backup//,.,/tmp//
+set backupdir=./.backup//,.,~/.vimtmp//,/tmp//
+set directory=./.backup//,.,~/.vimtmp//,/tmp//
+
+" Allow saving of files as sudo when I forgot to start vim using sudo.
+cmap w!! w !sudo tee > /dev/null %
 
 " Ccd = Change directory to current file
 if !exists(":Ccd") 
@@ -192,7 +190,7 @@ map! <F9> <C-]>
 
 " #### Plugins ####
 
-" Pathogen
+" Pathogen ( autoload plugin inside ./bundle/{} )
 execute pathogen#infect()
 
 " Unite
@@ -204,4 +202,8 @@ execute pathogen#infect()
 " nnoremap <leader>/ :Unite grep:.<cr>
 " nnoremap <leader>y :Unite history/yank<cr>
 " nnoremap <leader>b :Unite buffer<cr>
+
+" Emmet-vim
+" let g:user_emmet_leader_key='<C-e>'
+
 
