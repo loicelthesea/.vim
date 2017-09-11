@@ -109,7 +109,6 @@ imap <C-Space> <C-x><C-o>
 
 set guifont=inconsolata\ 12 
 set guitablabel=%M\ %t
-set background=dark
 if has("gui_running")
   set lines=999 columns=999
   set guioptions-=m " No menu
@@ -117,10 +116,22 @@ if has("gui_running")
   set guioptions-=e " 
   set guioptions-=r " No Right scroll bar
   set guioptions-=L " No Left scroll bar
-  colorscheme molokai
+  
+  " Fonts
+  if has("gui_gtk2")
+    set guifont=Inconsolata\ 12
+  elseif has("gui_macvim")
+    set guifont=Menlo\ Regular:h14
+  elseif has("gui_win32")
+    set guifont=Consolas:h11:cANSI
+  endif
+
+  colorscheme one
+  set background=light
 else
   set t_Co=256
   colorscheme molokai
+  set background=dark
 endif
 
 
@@ -131,8 +142,8 @@ set encoding=utf8
 set ffs=unix,dos,mac
 
 " Use backup & swap but set them in a different folder
-set backupdir=./.backup//,.,~/.vimtmp//,/tmp//
-set directory=./.backup//,.,~/.vimtmp//,/tmp//
+set backupdir=./.backup//,~/.vimtmp//,/tmp//,./
+set directory=./.backup//,~/.vimtmp//,/tmp//,./
 
 " Allow saving of files as sudo when I forgot to start vim using sudo.
 cmap w!! w !sudo tee > /dev/null %
