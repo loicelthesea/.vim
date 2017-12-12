@@ -33,6 +33,7 @@ inoremap jj <esc>
 " #### VIM GUI ####
 
 set relativenumber
+set number
 set cursorline
 set cmdheight=1
 set wildchar=<Tab> wildmenu wildmode=full
@@ -107,10 +108,9 @@ imap <C-Space> <C-x><C-o>
 
 " #### Colors and Fonts ####
 
-set guifont=inconsolata\ 12 
-set guitablabel=%M\ %t
 if has("gui_running")
   set lines=999 columns=999
+  set guitablabel=%M\ %t
   set guioptions-=m " No menu
   set guioptions-=T " No Toolbar
   set guioptions-=e " 
@@ -119,7 +119,7 @@ if has("gui_running")
   
   " Fonts
   if has("gui_gtk2")
-    set guifont=Inconsolata\ 12
+    set guifont=Inconsolata\ 11
   elseif has("gui_macvim")
     set guifont=Menlo\ Regular:h14
   elseif has("gui_win32")
@@ -127,7 +127,7 @@ if has("gui_running")
   endif
 
   colorscheme one
-  set background=light
+  set background=dark
 else
   set t_Co=256
   colorscheme molokai
@@ -215,6 +215,8 @@ execute pathogen#infect()
 " nnoremap <leader>b :Unite buffer<cr>
 
 " Emmet-vim
-" let g:user_emmet_leader_key='<C-e>'
+let g:user_emmet_leader_key='<C-e>'
+let g:user_emmet_mode='a'    "enable all function in all mode.
 
-
+" Vim JSX 
+let g:jsx_ext_required = 0 " Works with js files
