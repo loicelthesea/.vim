@@ -64,11 +64,16 @@ set matchtime=1
 set winminheight=0 winminwidth=0
 
 " Statusline
-set laststatus=2              "always visible
-set statusline=%02n:%.80F     "buffer : 80maxch-filepath
-set statusline+=%=            "switch to right
-set statusline+=(%c,%l/%L)    "(cursor,line/total)
-set statusline+=%y            "Filetype
+  " always visible
+set laststatus=2              
+  " Buffer: + 80max filepath + Modified flag
+set statusline=%02n:%.80F%m
+  " switch to right
+set statusline+=%=             
+  " (cursor,line/total)
+set statusline+=(%c-%l/%L)    
+  " Filetype
+set statusline+=%y            
 
 " #### Search & Replace
 set ignorecase
@@ -119,7 +124,7 @@ if has("gui_running")
   
   " Fonts
   if has("gui_gtk2")
-    set guifont=Inconsolata\ 11
+    set guifont=Inconsolata\ 12
   elseif has("gui_macvim")
     set guifont=Menlo\ Regular:h14
   elseif has("gui_win32")
@@ -130,7 +135,7 @@ if has("gui_running")
   set background=dark
 else
   set t_Co=256
-  colorscheme molokai
+  colorscheme elflord
   set background=dark
 endif
 
