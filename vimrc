@@ -28,7 +28,7 @@ set hidden
 
 " let mapleader = ","
 " let g:mapleader = ","
-inoremap jj <esc>
+inoremap jk <esc>
 
 " #### VIM GUI ####
 
@@ -131,11 +131,11 @@ if has("gui_running")
     set guifont=Consolas:h11:cANSI
   endif
 
-  colorscheme dracula
+  colorscheme one
   set background=dark
 else
   set t_Co=256
-  colorscheme elflord
+  colorscheme dracula
   set background=dark
 endif
 
