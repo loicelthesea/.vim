@@ -131,7 +131,7 @@ if has("gui_running")
     set guifont=Consolas:h11:cANSI
   endif
 
-  colorscheme one
+  colorscheme dracula
   set background=dark
 else
   set t_Co=256
