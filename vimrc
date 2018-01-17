@@ -67,7 +67,7 @@ set winminheight=0 winminwidth=0
   " always visible
 set laststatus=2              
   " Buffer: + 80max filepath + Modified flag
-set statusline=%02n:%.80F%m
+set statusline=%02n:%.80f%m
   " switch to right
 set statusline+=%=             
   " (cursor,line/total)
@@ -122,21 +122,22 @@ if has("gui_running")
   set guioptions-=r " No Right scroll bar
   set guioptions-=L " No Left scroll bar
   
+  colorscheme one
+  set background=dark
+
   " Fonts
   if has("gui_gtk2")
-    set guifont=Inconsolata\ 12
+    set guifont=Fira\ Mono\ 11
   elseif has("gui_macvim")
     set guifont=Menlo\ Regular:h14
   elseif has("gui_win32")
     set guifont=Consolas:h11:cANSI
   endif
 
-  colorscheme one
-  set background=dark
 else
   set t_Co=256
-  colorscheme dracula
   set background=dark
+  colorscheme dracula
 endif
 
 
@@ -156,6 +157,11 @@ cmap w!! w !sudo tee > /dev/null %
 " Ccd = Change directory to current file
 if !exists(":Ccd") 
   command Ccd cd %:p:h
+endif
+
+" Lcd = Change directory of current window to current file
+if !exists(":Lcd") 
+  command Lcd lcd %:p:h
 endif
 
 " #### Text, tab and indent related ####
