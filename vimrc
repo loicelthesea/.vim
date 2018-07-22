@@ -22,9 +22,11 @@ set history=10000
 " Enable syntax highlighting
 syntax enable 
 
-" Set to auto read when a file is changed from the outside
+" Set to autoread when a file is changed from the outside
 set autoread
-set hidden
+
+" Set to refuse unsaved hidden buffer
+set nohidden
 
 " let mapleader = ","
 " let g:mapleader = ","
@@ -136,8 +138,8 @@ if has("gui_running")
 
 else
   set t_Co=256
-  set background=dark
-  colorscheme dracula
+  set background=light
+  colorscheme one
 endif
 
 
@@ -148,8 +150,12 @@ set encoding=utf8
 set ffs=unix,dos,mac
 
 " Use backup & swap but set them in a different folder
-set backupdir=./.backup//,~/.vimtmp//,/tmp//,./
-set directory=./.backup//,~/.vimtmp//,/tmp//,./
+set backup
+set swapfile
+set writebackup
+set backupdir=~/.vimtmp//,~/.tmp//,~/tmp//,/var/tmp//,/tmp//
+set backupskip=/tmp/*,/private/tmp/*
+set directory=~/.vimtmp//,~/.tmp//,~/tmp//,/var/tmp//,/tmp//
 
 " Allow saving of files as sudo when I forgot to start vim using sudo.
 cmap w!! w !sudo tee > /dev/null %
@@ -174,7 +180,9 @@ set shiftwidth=2
 set tabstop=2
 
 " Remove auto inserting line when writing comments
-autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+augroup COMMENTS
+  autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+augroup END
 
 " Linebreak
 set wrap
@@ -182,7 +190,8 @@ set linebreak
 set showbreak=++\ 
 
 " Indentation
-set autoindent smartindent 
+set autoindent
+filetype plugin indent on
 
 " #### Moving around, tabs, windows and buffers ####
 
@@ -231,3 +240,9 @@ let g:user_emmet_mode='a'    "enable all function in all mode.
 
 " Vim JSX 
 let g:jsx_ext_required = 0 " Works with js files
+
+" Prettier
+let g:prettier#autoformat = 0
+augroup PRETTIER
+  autocmd BufWritePre *.js,*.css,*.scss,*.less Prettier
+augroup END
