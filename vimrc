@@ -1,11 +1,14 @@
-" #### Vimrc inspirations ####
+" ############################
+" Vimrc inspirations:
 " https://dougblack.io/words/a-good-vimrc.html
+" ############################
 
 " Source a global configuration file if available
 if filereadable("/etc/vim/vimrc.local")
   source /etc/vim/vimrc.local
 endif
 
+" #################
 " #### General ####
 
 " Enable filetype plugins
@@ -24,6 +27,7 @@ syntax enable
 
 " Set to autoread when a file is changed from the outside
 set autoread
+au FocusGained,BufEnter * :silent! !
 
 " Set to refuse unsaved hidden buffer
 set nohidden
@@ -32,6 +36,40 @@ set nohidden
 " let g:mapleader = ","
 inoremap jk <esc>
 
+" #################
+" #### Plugins ####
+
+" Pathogen ( autoload plugin inside ./bundle/{} )
+execute pathogen#infect()
+
+" Unite
+" let g:unite_enable_start_insert=1
+" let g:unite_source_history_yank_enable=1
+" call unite#filters#matcher_default#use(['matcher_fuzzy'])
+
+" nnoremap <leader>p :Unite file_rec/async<cr> 
+" nnoremap <leader>/ :Unite grep:.<cr>
+" nnoremap <leader>y :Unite history/yank<cr>
+" nnoremap <leader>b :Unite buffer<cr>
+
+" Emmet-vim
+let g:user_emmet_leader_key='<C-e>'
+let g:user_emmet_mode='a'    "enable all function in all mode.
+
+" Vim JSX 
+let g:jsx_ext_required = 0 " Works with js files
+
+" Prettier
+let g:prettier#autoformat = 0
+augroup PRETTIER
+  autocmd BufWritePre *.js,*.css,*.scss,*.less Prettier
+augroup END
+
+" Macro Matchit
+" configure % to match more than just single characters
+runtime macros/matchit.vim
+
+" #################
 " #### VIM GUI ####
 
 set relativenumber
@@ -77,6 +115,7 @@ set statusline+=(%c-%l/%L)
   " Filetype
 set statusline+=%y            
 
+" #################
 " #### Search & Replace
 set ignorecase
 set smartcase
@@ -85,6 +124,14 @@ set magic
 
 map <silent> <leader><CR> :set hlsearch! hlsearch?<CR>
 
+" #################
+" ####  Syntax 
+augroup syntaxing
+  au BufEnter,BufNew *.php :set filetype=html
+  au BufRead,BufNewFile *.hbs set filetype=html
+augroup END
+
+" #################
 " ####  Commenting blocks of code.
 augroup commenting
   autocmd FileType c,cpp,java,scala   let b:comment_leader = '// '
@@ -96,6 +143,7 @@ augroup commenting
   autocmd FileType sh,ruby,python,php setlocal commentstring=#\ %s
 augroup END
 
+" #################
 " #### Completion
 
 set completeopt=longest,menuone
@@ -113,7 +161,24 @@ augroup END
 imap <C-Space> <C-x><C-o>
 
 
+" #################
 " #### Colors and Fonts ####
+
+"Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
+"If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
+"(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
+if (empty($TMUX))
+  if (has("nvim"))
+    "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
+    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+  endif
+  "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
+  "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
+  " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
+  if (has("termguicolors"))
+    set termguicolors
+  endif
+endif
 
 if has("gui_running")
   set lines=999 columns=999
@@ -138,24 +203,26 @@ if has("gui_running")
 
 else
   set t_Co=256
-  set background=light
-  colorscheme one
+  set background=dark
+  colorscheme onedark
 endif
 
 
-" #### Files, backups and undo ####
+" #################
+" #### Files, backups and undo
 set encoding=utf8
 
 " Use Unix as the standard file type
 set ffs=unix,dos,mac
 
-" Use backup & swap but set them in a different folder
+" Use backup, swap, undo files but set them in a different folder
 set backup
-set swapfile
+set backupcopy=yes
 set writebackup
-set backupdir=~/.vimtmp//,~/.tmp//,~/tmp//,/var/tmp//,/tmp//
-set backupskip=/tmp/*,/private/tmp/*
-set directory=~/.vimtmp//,~/.tmp//,~/tmp//,/var/tmp//,/tmp//
+set swapfile
+set backupdir=.backup/,~/.vim/.backup//,~/.tmp//,/tmp//
+set directory=.swap/,~/.vim/.swap//,~/.tmp//,/tmp//
+set undodir=.undo,/~/.vim/.undo//,~/.tmp//,/tmp//
 
 " Allow saving of files as sudo when I forgot to start vim using sudo.
 cmap w!! w !sudo tee > /dev/null %
@@ -170,7 +237,8 @@ if !exists(":Lcd")
   command Lcd lcd %:p:h
 endif
 
-" #### Text, tab and indent related ####
+" #################
+" #### Text, tab and indent related
 
 " Use spaces instead of tabs & Be smart when using tabs ;)
 set expandtab smarttab
@@ -191,9 +259,9 @@ set showbreak=++\
 
 " Indentation
 set autoindent
-filetype plugin indent on
 
-" #### Moving around, tabs, windows and buffers ####
+" #################
+" #### Moving around, tabs, windows and buffers
 
 " Open new windows below or on the right
 set splitbelow splitright
@@ -219,30 +287,3 @@ map <C-l> <C-W>l<C-W>\|
 nmap <F9> <C-]>
 map! <F9> <C-]>
 
-" #### Plugins ####
-
-" Pathogen ( autoload plugin inside ./bundle/{} )
-execute pathogen#infect()
-
-" Unite
-" let g:unite_enable_start_insert=1
-" let g:unite_source_history_yank_enable=1
-" call unite#filters#matcher_default#use(['matcher_fuzzy'])
-
-" nnoremap <leader>p :Unite file_rec/async<cr> 
-" nnoremap <leader>/ :Unite grep:.<cr>
-" nnoremap <leader>y :Unite history/yank<cr>
-" nnoremap <leader>b :Unite buffer<cr>
-
-" Emmet-vim
-let g:user_emmet_leader_key='<C-e>'
-let g:user_emmet_mode='a'    "enable all function in all mode.
-
-" Vim JSX 
-let g:jsx_ext_required = 0 " Works with js files
-
-" Prettier
-let g:prettier#autoformat = 0
-augroup PRETTIER
-  autocmd BufWritePre *.js,*.css,*.scss,*.less Prettier
-augroup END
