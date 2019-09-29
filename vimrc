@@ -62,7 +62,10 @@ let g:jsx_ext_required = 0 " Works with js files
 " Prettier
 let g:prettier#autoformat = 0
 augroup PRETTIER
-  autocmd BufWritePre *.js,*.css,*.scss,*.less Prettier
+  autocmd BufWritePre *.js,*.css,*.scss,*.less,*.php Prettier
+  autocmd FileType php let b:prettier_ft_default_args = {
+        \ 'parser': 'php',
+\ }
 augroup END
 
 " Macro Matchit
@@ -126,13 +129,14 @@ map <silent> <leader><CR> :set hlsearch! hlsearch?<CR>
 
 " #################
 " ####  Syntax 
+" #################
 augroup syntaxing
-  au BufEnter,BufNew *.php :set filetype=html
-  au BufRead,BufNewFile *.hbs set filetype=html
+  "au BufEnter,BufNew *.php :set filetype=php
 augroup END
 
 " #################
 " ####  Commenting blocks of code.
+" #################
 augroup commenting
   autocmd FileType c,cpp,java,scala   let b:comment_leader = '// '
   autocmd FileType sh,ruby,python,php let b:comment_leader = '# '
@@ -140,7 +144,6 @@ augroup commenting
   autocmd FileType tex                let b:comment_leader = '% '
   autocmd FileType mail               let b:comment_leader = '> '
   autocmd FileType vim                let b:comment_leader = '" '
-  autocmd FileType sh,ruby,python,php setlocal commentstring=#\ %s
 augroup END
 
 " #################
