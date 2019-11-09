@@ -1,28 +1,31 @@
 
 [submodule "bundle/gundo"]
-	path = bundle/gundo
+	path = pack/general/start/gundo
 	url = https://github.com/sjl/gundo.vim.git
 [submodule "bundle/tcomment"]
-	path = bundle/tcomment
+	path = pack/general/start/tcomment
 	url = https://github.com/tomtom/tcomment_vim.git
 [submodule "bundle/emmet"]
-	path = bundle/emmet
+	path = pack/general/start/emmet
 	url = https://github.com/mattn/emmet-vim.git
 [submodule "bundle/vim-javascript"]
-	path = bundle/vim-javascript
+	path = pack/lang/opt/vim-javascript
 	url = https://github.com/pangloss/vim-javascript.git
 [submodule "bundle/vim-jsx"]
-	path = bundle/vim-jsx
+	path = pack/lang/opt/vim-jsx
 	url = https://github.com/mxw/vim-jsx
 [submodule "bundle/prettier"]
-	path = bundle/prettier
+	path = pack/general/start/prettier
 	url = https://github.com/prettier/vim-prettier
 [submodule "bundle/vim-polyglot"]
-	path = bundle/vim-polyglot
+	path = pack/lang/start/vim-polyglot
 	url = https://github.com/sheerun/vim-polyglot
-[submodule "bundle/onedark.vim"]
-	path = bundle/onedark.vim
-	url = https://github.com/joshdick/onedark.vim
 [submodule "bundle/php.vim"]
-	path = bundle/php.vim
+	path = pack/lang/opt/php.vim
 	url = https://github.com/StanAngeloff/php.vim.git
+[submodule "bundle/tern"]
+	path = pack/lang/opt/term-js
+	url = https://github.com/ternjs/tern_for_vim.git
+[submodule "pack/colors/start/vim-monokai"]
+	path = pack/colors/start/vim-monokai
+	url = https://github.com/crusoexia/vim-monokai.git
