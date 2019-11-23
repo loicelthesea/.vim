@@ -9,10 +9,10 @@
 	path = pack/general/start/emmet
 	url = https://github.com/mattn/emmet-vim.git
 [submodule "bundle/vim-javascript"]
-	path = pack/lang/opt/vim-javascript
+	path = pack/lang/start/vim-javascript
 	url = https://github.com/pangloss/vim-javascript.git
 [submodule "bundle/vim-jsx"]
-	path = pack/lang/opt/vim-jsx
+	path = pack/lang/start/vim-jsx
 	url = https://github.com/mxw/vim-jsx
 [submodule "bundle/prettier"]
 	path = pack/general/start/prettier
@@ -29,3 +29,6 @@
 [submodule "pack/colors/start/vim-monokai"]
 	path = pack/colors/start/vim-monokai
 	url = https://github.com/crusoexia/vim-monokai.git
+[submodule "pack/general/start/fzf.vim"]
+	path = pack/general/start/fzf.vim
+	url = https://github.com/junegunn/fzf.vim.git

@@ -29,8 +29,8 @@ syntax enable
 set autoread
 au FocusGained,BufEnter * :silent! !
 
-" Set to refuse unsaved hidden buffer
-set nohidden
+" Set to allow unsaved hidden buffer
+set hidden
 
 " ##############################################
 " #### Plugins
@@ -61,6 +61,8 @@ augroup PRETTIER
 \ }
 augroup END
 
+" FZF
+set rtp+=~/src/fzf
 
 " ##############################################
 " #### VIM GUI ####
@@ -73,8 +75,8 @@ set cmdheight=1
 set wildchar=<Tab> wildmenu wildmode=full
 
 " Configure visual vertical line at 100
-set colorcolumn=100
-highlight ColorColumn ctermbg=DarkGray guibg=DarkGray
+set colorcolumn=80
+highlight ColorColumn ctermbg=black guibg=gray18
 
 " Ignore compiled files
 set wildignore=*.o,*~,*.pyc
@@ -180,7 +182,8 @@ if has("gui_running")
 
 else
   set t_Co=256
-  colorscheme default
+  set background=light
+  colorscheme one
 endif
 
 
@@ -250,6 +253,9 @@ set noequalalways
 " #### SHORTCUTS
 " ##############################################
 
+" Disable CTRL-Z
+nnoremap <c-z> <nop>
+
 " Allow saving of files as sudo when I forgot to start vim using sudo.
 cmap w!! w !sudo tee > /dev/null %
 
@@ -269,11 +275,11 @@ map <C-l> <C-W>l<C-W>\|
 " CTRL b        : select from list
 " CTRL p        : go back
 " CTRL n        : go next
-" CTRL e        : go last used
+" CTRL l        : go last used
 nnoremap <C-b> :buffers<CR>:b<Space>
 nnoremap <C-p> :bp<CR>
 nnoremap <C-n> :bn<CR>
-nnoremap <C-e> :e#<cr>
+nnoremap <C-l> :e#<CR>
 
 " \l        : list buffers
 " \b        : go back
@@ -301,7 +307,15 @@ inoremap jk <esc>
 inoremap kk <esc>
 
 " Remap Ctrl Space for auto completion
-inoremap <C-Space> <C-x><C-o>
+if !has("gui_running")
+  if has("unix")
+    inoremap <C-@> <C-x><C-o>
+  elseif has("win32")
+    inoremap <C-Space> <C-x><C-o>
+  endif
+else
+    inoremap <C-Space> <C-x><C-o>
+endif
 
 " Treat long lines as break lines (useful when moving around in them)
 " map j gj
