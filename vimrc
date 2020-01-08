@@ -253,11 +253,11 @@ set noequalalways
 " #### SHORTCUTS
 " ##############################################
 
-" Disable CTRL-Z
-nnoremap <c-z> <nop>
-
 " Allow saving of files as sudo when I forgot to start vim using sudo.
 cmap w!! w !sudo tee > /dev/null %
+
+" Disable CTRL-Z
+nnoremap <c-z> <nop>
 
 " Unmap arrow keys
 map <up> <nop>
@@ -272,38 +272,23 @@ map <C-h> <C-W>h<C-W>\|
 map <C-l> <C-W>l<C-W>\|
 
 " Mappings to access buffers
-" CTRL b        : select from list
-" CTRL p        : go back
-" CTRL n        : go next
-" CTRL l        : go last used
 nnoremap <C-b> :buffers<CR>:b<Space>
-nnoremap <C-p> :bp<CR>
+nnoremap <C-b><C-b> :e#<CR>
 nnoremap <C-n> :bn<CR>
-nnoremap <C-l> :e#<CR>
-
-" \l        : list buffers
-" \b        : go back
-" \n        : go next
-" \e        : go last-used
-" \1 \2 \3  : go to buffer 1/2/3 etc
-"nnoremap <Leader>l :ls<CR>
-"nnoremap <Leader>b :bp<CR>
-"nnoremap <Leader>n :bn<CR>
-"nnoremap <Leader>e :e#<CR>
-"nnoremap <Leader>1 :1b<CR>
-"nnoremap <Leader>2 :2b<CR>
-"nnoremap <Leader>3 :3b<CR>
-"nnoremap <Leader>4 :4b<CR>
-"nnoremap <Leader>5 :5b<CR>
-"nnoremap <Leader>6 :6b<CR>
-"nnoremap <Leader>7 :7b<CR>
-"nnoremap <Leader>8 :8b<CR>
-"nnoremap <Leader>9 :9b<CR>
-"nnoremap <Leader>0 :10b<CR>
+nnoremap <C-p> :bp<CR>
+nnoremap <C-b>1 :1b<CR>
+nnoremap <C-b>2 :2b<CR>
+nnoremap <C-b>3 :3b<CR>
+nnoremap <C-b>4 :4b<CR>
+nnoremap <C-b>5 :5b<CR>
+nnoremap <C-b>6 :6b<CR>
+nnoremap <C-b>7 :7b<CR>
+nnoremap <C-b>8 :8b<CR>
+nnoremap <C-b>9 :9b<CR>
+nnoremap <C-b>0 :10b<CR>
 
 " Easy escape Insert Mode
 inoremap jj <esc>
-inoremap jk <esc>
 inoremap kk <esc>
 
 " Remap Ctrl Space for auto completion
