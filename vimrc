@@ -55,10 +55,13 @@ let g:jsx_ext_required = 0 " Works with js files
 " Prettier
 let g:prettier#autoformat = 0
 augroup PRETTIER
-  autocmd BufWritePre *.js,*.css,*.scss,*.less,*.php Prettier
+  autocmd BufWritePre
+        \ *.js,*.jsx,*.mjs,*.ts,*.tsx, *.vue
+        \ *.css,*.less,*.scss,*.json,*.graphql,*.md,*.yaml,*.html
+        \ PrettierAsync
   autocmd FileType php let b:prettier_ft_default_args = {
         \ 'parser': 'php',
-\ }
+        \ }
 augroup END
 
 " FZF
@@ -70,6 +73,7 @@ set rtp+=~/src/fzf
 
 set number
 set norelativenumber
+set scrolloff=10
 set nocursorline
 set cmdheight=1
 set wildchar=<Tab> wildmenu wildmode=full
