@@ -269,27 +269,27 @@ map <down> <nop>
 map <left> <nop>
 map <right> <nop>
 
-" Smart way to move between windows
-map <C-j> <C-W>j<C-W>_
-map <C-k> <C-W>k<C-W>_
-map <C-h> <C-W>h<C-W>\|
-map <C-l> <C-W>l<C-W>\|
+" Smart way to manage windows
+noremap <C-j> <C-W>j<C-W>_
+noremap <C-k> <C-W>k<C-W>_
+noremap <C-h> <C-W>h<C-W>\|
+noremap <C-l> <C-W>l<C-W>\|
 
 " Mappings to access buffers
 nnoremap <C-b> :buffers<CR>:b<Space>
 nnoremap <C-b><C-b> :e#<CR>
 nnoremap <C-n> :bn<CR>
 nnoremap <C-p> :bp<CR>
-nnoremap <C-b>1 :1b<CR>
-nnoremap <C-b>2 :2b<CR>
-nnoremap <C-b>3 :3b<CR>
-nnoremap <C-b>4 :4b<CR>
-nnoremap <C-b>5 :5b<CR>
-nnoremap <C-b>6 :6b<CR>
-nnoremap <C-b>7 :7b<CR>
-nnoremap <C-b>8 :8b<CR>
-nnoremap <C-b>9 :9b<CR>
-nnoremap <C-b>0 :10b<CR>
+nnoremap <C-1> :1b<CR>
+nnoremap <C-2> :2b<CR>
+nnoremap <C-3> :3b<CR>
+nnoremap <C-4> :4b<CR>
+nnoremap <C-5> :5b<CR>
+nnoremap <C-6> :6b<CR>
+nnoremap <C-7> :7b<CR>
+nnoremap <C-8> :8b<CR>
+nnoremap <C-9> :9b<CR>
+nnoremap <C-0> :10b<CR>
 
 " Easy escape Insert Mode
 inoremap jj <esc>
