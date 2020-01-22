@@ -65,7 +65,7 @@ augroup PRETTIER
 augroup END
 
 " FZF
-set rtp+=~/src/fzf
+set rtp+=~/.fzf
 
 " ##############################################
 " #### VIM GUI ####
@@ -316,3 +316,8 @@ nnoremap E $
 
 " Highlight/Hide current search
 nnoremap <silent> <leader><CR> :set hlsearch! hlsearch?<CR>
+
+" Set Fzf quick Files
+nnoremap <C-f> :Files<CR>
+
+
