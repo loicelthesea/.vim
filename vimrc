@@ -55,10 +55,7 @@ let g:jsx_ext_required = 0 " Works with js files
 " Prettier
 let g:prettier#autoformat = 0
 augroup PRETTIER
-  autocmd BufWritePre
-        \ *.js,*.jsx,*.mjs,*.ts,*.tsx, *.vue
-        \ *.css,*.less,*.scss,*.json,*.graphql,*.md,*.yaml,*.html
-        \ PrettierAsync
+  autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.vue,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.yaml,*.html Prettier
   autocmd FileType php let b:prettier_ft_default_args = {
         \ 'parser': 'php',
         \ }
@@ -203,9 +200,9 @@ set backup
 set backupcopy=yes
 set writebackup
 set swapfile
-set backupdir=.backup/,~/.vim/.backup//,~/.tmp//,/tmp//
-set directory=.swap/,~/.vim/.swap//,~/.tmp//,/tmp//
-set undodir=.undo,/~/.vim/.undo//,~/.tmp//,/tmp//
+set backupdir=.backup/,~/.vim/.backup//,~/tmp//,/tmp//
+set directory=.swap/,~/.vim/.swap//,~/tmp//,/tmp//
+set undodir=.undo,/~/.vim/.undo//,~/tmp//,/tmp//
 
 " Ccd = Change directory to current file
 if !exists(":Ccd") 
