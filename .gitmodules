@@ -38,3 +38,18 @@
 [submodule "pack/general/start/vim-sandwich"]
 	path = pack/general/start/vim-sandwich
 	url = https://github.com/machakann/vim-sandwich.git
+[submodule "pack/general/start/fugitive"]
+	path = pack/general/start/fugitive
+	url = https://tpope.io/vim/fugitive.git
+[submodule "pack/lang/start/typescript"]
+	path = pack/lang/start/typescript
+	url = https://github.com/leafgarland/typescript-vim.git
+[submodule "pack/colors/start/dracula"]
+	path = pack/colors/opt/dracula
+	url = git@github.com:dracula/vim.git
+[submodule "pack/colors/onedark"]
+	path = pack/colors/opt/onedark
+	url = https://github.com/joshdick/onedark.vim.git
+[submodule "pack/general/start/gv.vim"]
+	path = pack/general/start/gv.vim
+	url = https://github.com/junegunn/gv.vim.git

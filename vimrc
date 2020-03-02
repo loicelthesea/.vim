@@ -52,13 +52,17 @@ let g:user_emmet_settings = {
 " Vim JSX 
 let g:jsx_ext_required = 0 " Works with js files
 
+" Typescript
+let g:typescript_indent_disable = 1
+
 " Prettier
-let g:prettier#autoformat = 0
 augroup PRETTIER
-  autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.vue,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.yaml,*.html Prettier
-  autocmd FileType php let b:prettier_ft_default_args = {
-        \ 'parser': 'php',
-        \ }
+  let g:prettier#autoformat_require_pragma = 0
+  let g:prettier#autoformat_config_present = 1
+  let g:prettier#exec_cmd_path = "~/.nvm/versions/node/v10.18.1/bin/prettier"
+
+  autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html Prettier
+  autocmd FileType php let b:prettier_ft_default_args = { 'parser': 'php' }
 augroup END
 
 " FZF
@@ -86,6 +90,9 @@ if has("win16") || has("win32")
 else
   set wildignore+=.git\*,.hg\*,.svn\*
 endif
+
+" Ignore white space for diff
+set diffopt+=iwhite
 
 " Configure backspace so it acts as it should act
 set backspace=eol,start,indent
@@ -272,6 +279,10 @@ noremap <C-k> <C-W>k<C-W>_
 noremap <C-h> <C-W>h<C-W>\|
 noremap <C-l> <C-W>l<C-W>\|
 
+" Easy escape Insert Mode
+inoremap jj <esc>
+inoremap kk <esc>
+
 " Mappings to access buffers
 nnoremap <C-b> :buffers<CR>:b<Space>
 nnoremap <C-b><C-b> :e#<CR>
@@ -288,9 +299,12 @@ nnoremap <C-8> :8b<CR>
 nnoremap <C-9> :9b<CR>
 nnoremap <C-0> :10b<CR>
 
-" Easy escape Insert Mode
-inoremap jj <esc>
-inoremap kk <esc>
+" Mappings for vimdiff
+if &diff
+  map <leader>1 :diffget LOCAL<CR>
+  map <leader>2 :diffget BASE<CR>
+  map <leader>3 :diffget REMOTE<CR>
+endif
 
 " Remap Ctrl Space for auto completion
 if !has("gui_running")
@@ -316,5 +330,4 @@ nnoremap <silent> <leader><CR> :set hlsearch! hlsearch?<CR>
 
 " Set Fzf quick Files
 nnoremap <C-f> :Files<CR>
-
 
