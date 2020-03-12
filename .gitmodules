@@ -27,7 +27,7 @@
 	path = pack/lang/opt/term-js
 	url = https://github.com/ternjs/tern_for_vim.git
 [submodule "pack/colors/start/vim-monokai"]
-	path = pack/colors/start/vim-monokai
+	path = pack/colors/opt/vim-monokai
 	url = https://github.com/crusoexia/vim-monokai.git
 [submodule "pack/general/start/fzf.vim"]
 	path = pack/general/start/fzf.vim
@@ -53,3 +53,6 @@
 [submodule "pack/general/start/gv.vim"]
 	path = pack/general/start/gv.vim
 	url = https://github.com/junegunn/gv.vim.git
+[submodule "pack/general/start/ale"]
+	path = pack/general/start/ale
+	url = https://github.com/dense-analysis/ale.git

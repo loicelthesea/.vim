@@ -23,7 +23,7 @@ autocmd GUIEnter * set visualbell t_vb=
 set history=10000
 
 " Enable syntax highlighting
-syntax enable 
+syntax enable
 
 " Set to autoread when a file is changed from the outside
 set autoread
@@ -40,6 +40,9 @@ set hidden
 " configure % to match more than just single characters
 runtime macros/matchit.vim
 
+" FZF
+set rtp+=~/.fzf
+
 " Emmet-vim
 let g:user_emmet_leader_key='<C-e>'
 let g:user_emmet_mode='a'    "enable all function in all mode.
@@ -49,7 +52,7 @@ let g:user_emmet_settings = {
     \  },
   \}
 
-" Vim JSX 
+" Vim JSX
 let g:jsx_ext_required = 0 " Works with js files
 
 " Typescript
@@ -65,8 +68,29 @@ augroup PRETTIER
   autocmd FileType php let b:prettier_ft_default_args = { 'parser': 'php' }
 augroup END
 
-" FZF
-set rtp+=~/.fzf
+" ALE
+augroup ALE
+  let g:ale_linters = {
+        \   'javascript': ['eslint'],
+        \   'typescript': ['tsserver', 'tslint'],
+        \   'vue': ['eslint']
+        \}
+
+  let g:ale_fixers = {
+        \ '*': ['remove_trailing_lines', 'trim_whitespace'],
+        \ 'javascript': ['prettier', 'eslint'],
+        \ 'typescript': ['prettier'],
+        \ 'vue': ['eslint'],
+        \ 'scss': ['prettier'],
+        \ 'html': ['prettier']
+        \}
+
+  let g:ale_sign_column_always = 1
+  let g:ale_set_loclist = 0
+  let g:ale_set_quickfix = 1
+  let g:ale_open_list = 1
+  let g:ale_fix_on_save = 1
+augroup END
 
 " ##############################################
 " #### VIM GUI ####
@@ -99,23 +123,23 @@ set backspace=eol,start,indent
 "set whichwrap+=<,>,h,l
 
 " Show matching brackets when text indicator is over them
-set showmatch 
+set showmatch
 set matchtime=1
 
 " Sets minimum Window Width and Heigth to 0
 set winminheight=0 winminwidth=0
 
 " Statusline
-  " always visible
-set laststatus=2              
-  " Buffer: + 80max filepath + Modified flag
-set statusline=%02n:%.80f%m
-  " switch to right
-set statusline+=%=             
-  " (cursor,line/total)
-set statusline+=(%c-%l/%L)    
-  " Filetype
-set statusline+=%y            
+"- always visible
+set laststatus=2
+"- Buffer: + 80max filepath + Modified flag + Readonly
+set statusline=%03n:%.120f%m%r
+"- switch to right
+set statusline+=%=
+"- (cursor,line/total)
+set statusline+=%P\ (%c-%l/%L)
+"- Filetype
+set statusline+=%y
 
 " ##############################################
 " #### Search & Replace
@@ -127,7 +151,7 @@ set hlsearch
 set magic
 
 " ##############################################
-" ####  Syntax 
+" ####  Syntax
 " ##############################################
 
 augroup syntaxing
@@ -172,10 +196,10 @@ if has("gui_running")
   set guitablabel=%M\ %t
   set guioptions-=m " No menu
   set guioptions-=T " No Toolbar
-  set guioptions-=e " 
+  set guioptions-=e "
   set guioptions-=r " No Right scroll bar
   set guioptions-=L " No Left scroll bar
-  
+
   set background=dark
   colorscheme dracula
 
@@ -212,12 +236,12 @@ set directory=.swap/,~/.vim/.swap//,~/tmp//,/tmp//
 set undodir=.undo,/~/.vim/.undo//,~/tmp//,/tmp//
 
 " Ccd = Change directory to current file
-if !exists(":Ccd") 
+if !exists(":Ccd")
   command Ccd cd %:p:h
 endif
 
 " Lcd = Change directory of current window to current file
-if !exists(":Lcd") 
+if !exists(":Lcd")
   command Lcd lcd %:p:h
 endif
 
@@ -242,7 +266,7 @@ augroup END
 " Linebreak
 set wrap
 set linebreak
-set showbreak=~~\ 
+set showbreak=~~\
 
 " Indentation
 set autoindent
@@ -254,7 +278,7 @@ set autoindent
 " Open new windows below or on the right
 set splitbelow splitright
 
-" Disable autoresizing 
+" Disable autoresizing
 set noequalalways
 
 " ##############################################
@@ -330,4 +354,3 @@ nnoremap <silent> <leader><CR> :set hlsearch! hlsearch?<CR>
 
 " Set Fzf quick Files
 nnoremap <C-f> :Files<CR>
-
