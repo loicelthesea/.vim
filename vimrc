@@ -22,9 +22,6 @@ autocmd GUIEnter * set visualbell t_vb=
 " Sets how many lines of history VIM has to remember
 set history=10000
 
-" Enable syntax highlighting
-syntax enable
-
 " Set to autoread when a file is changed from the outside
 set autoread
 au FocusGained,BufEnter * :silent! !
@@ -41,10 +38,17 @@ set hidden
 runtime macros/matchit.vim
 
 " FZF
-set rtp+=~/.fzf
+augroup FZF
+  set rtp+=~/.fzf
+augroup END
+
+" Ack.vim + ag
+" if executable('ag')
+"   let g:ackprg = 'ag --vimgrep'
+" endif
 
 " Emmet-vim
-let g:user_emmet_leader_key='<C-e>'
+let g:user_emmet_leader_key='<leader>e'
 let g:user_emmet_mode='a'    "enable all function in all mode.
 let g:user_emmet_settings = {
   \  'javascript.jsx' : {
@@ -58,38 +62,50 @@ let g:jsx_ext_required = 0 " Works with js files
 " Typescript
 let g:typescript_indent_disable = 1
 
-" Prettier
-augroup PRETTIER
-  let g:prettier#autoformat_require_pragma = 0
-  let g:prettier#autoformat_config_present = 1
-  let g:prettier#exec_cmd_path = "~/.nvm/versions/node/v10.18.1/bin/prettier"
-
-  autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html Prettier
-  autocmd FileType php let b:prettier_ft_default_args = { 'parser': 'php' }
-augroup END
+" Prettier // config not needed with ALE
+" augroup PRETTIER
+"   let g:prettier#autoformat_require_pragma = 0
+"   let g:prettier#autoformat_config_present = 1
+"   let g:prettier#autoformat_config_files = ['.prettierrc']
+"   let g:prettier#exec_cmd_path = "~/.nvm/versions/node/v10.18.1/bin/prettier"
+"
+"   autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html Prettier
+"   autocmd FileType php let b:prettier_ft_default_args = { 'parser': 'php' }
+" augroup END
 
 " ALE
 augroup ALE
-  let g:ale_linters = {
-        \   'javascript': ['eslint'],
-        \   'typescript': ['tsserver', 'tslint'],
-        \   'vue': ['eslint']
-        \}
+  let g:ale_open_list = 1
+  let g:ale_keep_list_window_open = 0
+  let g:ale_list_vertical = 0
+  let g:ale_set_quickfix = 0
+  let g:ale_set_loclist = 1
+  let g:ale_sign_column_always = 1
 
+  let g:ale_lint_on_text_changed = 'never'
+  let g:ale_lint_on_insert_leave = 0
+  let g:ale_lint_on_enter = 0
+
+  let g:ale_linters = {
+    \   'javascript': ['eslint', 'tsserver'],
+    \   'typescript': ['eslint', 'tslint', 'tsserver'],
+    \   'vue': ['eslint']
+    \}
+    "   'vue': ['eslint', 'vls']
+
+  let g:ale_fix_on_save = 1
   let g:ale_fixers = {
         \ '*': ['remove_trailing_lines', 'trim_whitespace'],
-        \ 'javascript': ['prettier', 'eslint'],
-        \ 'typescript': ['prettier'],
-        \ 'vue': ['eslint'],
-        \ 'scss': ['prettier'],
-        \ 'html': ['prettier']
+        \ 'javascript': ['remove_trailing_lines', 'trim_whitespace', 'prettier', 'eslint'],
+        \ 'typescript': ['remove_trailing_lines', 'trim_whitespace', 'prettier', 'eslint'],
+        \ 'vue': ['remove_trailing_lines', 'trim_whitespace', 'prettier', 'eslint'],
+        \ 'scss': ['remove_trailing_lines', 'trim_whitespace', 'prettier'],
+        \ 'html': ['prettier'],
+        \ 'md': ['prettier', 'eslint']
         \}
 
-  let g:ale_sign_column_always = 1
-  let g:ale_set_loclist = 0
-  let g:ale_set_quickfix = 1
-  let g:ale_open_list = 1
-  let g:ale_fix_on_save = 1
+  let g:ale_completion_enabled = 1
+  let g:ale_completion_tsserver_autoimport = 1
 augroup END
 
 " ##############################################
@@ -127,13 +143,13 @@ set showmatch
 set matchtime=1
 
 " Sets minimum Window Width and Heigth to 0
-set winminheight=0 winminwidth=0
+set winminwidth=20 winminheight=0
 
 " Statusline
 "- always visible
 set laststatus=2
 "- Buffer: + 80max filepath + Modified flag + Readonly
-set statusline=%03n:%.120f%m%r
+set statusline=%03n:%{expand('%:~:.80f')}%m%r
 "- switch to right
 set statusline+=%=
 "- (cursor,line/total)
@@ -155,6 +171,9 @@ set magic
 " ##############################################
 
 augroup syntaxing
+  " Enable syntax highlighting
+  syntax on
+
   "au BufEnter,BufNew *.php :set filetype=php
 augroup END
 
@@ -175,16 +194,19 @@ augroup END
 " #### Completion
 " ##############################################
 
-set omnifunc=syntaxcomplete#Complete
-set completeopt=longest,menuone
 augroup completion
-  autocmd!
-  autocmd FileType xml            setlocal omnifunc=xmlcomplete#CompleteTags
-  autocmd FileType html,markdown  setlocal omnifunc=htmlcomplete#CompleteTags
-  autocmd FileType css,less       setlocal omnifunc=csscomplete#CompleteCSS
-  autocmd FileType javascript     setlocal omnifunc=javascriptcomplete#CompleteJS
-  autocmd FileType python         setlocal omnifunc=python3complete#Complete
-  autocmd FileType php            setlocal omnifunc=phpcomplete#CompletePHP
+  " set omnifunc=syntaxcomplete#Complete
+  " set omnifunc=ale#completion#OmniFunc
+  set completeopt=longest,menuone,preview
+  " autocmd!
+  " autocmd FileType xml            setlocal omnifunc=xmlcomplete#CompleteTags
+  " autocmd FileType html,markdown  setlocal omnifunc=htmlcomplete#CompleteTags
+  " autocmd FileType css,less       setlocal omnifunc=csscomplete#CompleteCSS
+  " autocmd FileType javascript     setlocal omnifunc=javascriptcomplete#CompleteJS
+  " autocmd FileType python         setlocal omnifunc=python3complete#Complete
+   " autocmd FileType php            setlocal omnifunc=phpcomplete#CompletePHP
+   inoremap <expr><C-k>  pumvisible() ? "\<C-p>" : "\<TAB>"
+   inoremap <expr><C-j>  pumvisible() ? "\<C-n>" : "\<TAB>"
 augroup END
 
 " ##############################################
@@ -201,7 +223,7 @@ if has("gui_running")
   set guioptions-=L " No Left scroll bar
 
   set background=dark
-  colorscheme dracula
+  colorscheme one2
 
   " Fonts
   if has("gui_gtk2")
@@ -288,6 +310,23 @@ set noequalalways
 " Allow saving of files as sudo when I forgot to start vim using sudo.
 cmap w!! w !sudo tee > /dev/null %
 
+" Map Enter to command line
+noremap <space> :
+vnoremap <space> :
+
+nnoremap gj G
+nnoremap gk gg
+nnoremap gh ^
+nnoremap gl $
+
+" Treat long lines as break lines (useful when moving around in them)
+nnoremap j gj
+nnoremap k gk
+
+" Move to beginning/end of line
+" nnoremap B ^
+" nnoremap E $
+
 " Disable CTRL-Z
 nnoremap <c-z> <nop>
 
@@ -297,11 +336,14 @@ map <down> <nop>
 map <left> <nop>
 map <right> <nop>
 
-" Smart way to manage windows
+" Stacks windows when navigate
 noremap <C-j> <C-W>j<C-W>_
 noremap <C-k> <C-W>k<C-W>_
 noremap <C-h> <C-W>h<C-W>\|
 noremap <C-l> <C-W>l<C-W>\|
+
+" Fast maximise windows
+noremap <leader>- <C-W>_
 
 " Easy escape Insert Mode
 inoremap jj <esc>
@@ -312,16 +354,6 @@ nnoremap <C-b> :buffers<CR>:b<Space>
 nnoremap <C-b><C-b> :e#<CR>
 nnoremap <C-n> :bn<CR>
 nnoremap <C-p> :bp<CR>
-nnoremap <C-1> :1b<CR>
-nnoremap <C-2> :2b<CR>
-nnoremap <C-3> :3b<CR>
-nnoremap <C-4> :4b<CR>
-nnoremap <C-5> :5b<CR>
-nnoremap <C-6> :6b<CR>
-nnoremap <C-7> :7b<CR>
-nnoremap <C-8> :8b<CR>
-nnoremap <C-9> :9b<CR>
-nnoremap <C-0> :10b<CR>
 
 " Mappings for vimdiff
 if &diff
@@ -341,16 +373,35 @@ else
     inoremap <C-Space> <C-x><C-o>
 endif
 
-" Treat long lines as break lines (useful when moving around in them)
-" map j gj
-" map k gk
 
-" Move to beginning/end of line
-nnoremap B ^
-nnoremap E $
+" Easy save & quit
+nnoremap <leader>w :<C-u>update!<cr>
+nnoremap <leader>q :q<cr>
 
 " Highlight/Hide current search
 nnoremap <silent> <leader><CR> :set hlsearch! hlsearch?<CR>
 
-" Set Fzf quick Files
-nnoremap <C-f> :Files<CR>
+" Quickfix & Location List
+nnoremap <C-l><C-n> :lnext<CR>
+nnoremap <C-l><C-p> :lprevious<CR>
+nnoremap <C-c><C-n> :cnext<CR>
+nnoremap <C-c><C-p> :cprevious<CR>
+
+" FZF
+nnoremap <leader>f :Files<CR>
+nnoremap <leader>b :Buffers<CR>
+nnoremap <leader>h :History<CR>
+nnoremap <leader>H :History:<CR>
+
+" ALE
+nnoremap <leader>L :ALELint<CR>
+nnoremap <leader>F :ALEFix<CR>
+nnoremap <F10> :ALEHover<CR>
+nnoremap <F11> :ALEFindReferences<CR>
+nnoremap <F12> :ALEGoToDefinition<CR>
+
+" ##############################################
+" #### Tags generation
+" ##############################################
+
+silent! helptags ALL
