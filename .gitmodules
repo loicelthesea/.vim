@@ -11,21 +11,9 @@
 [submodule "bundle/vim-jsx"]
 	path = pack/lang/start/vim-jsx
 	url = https://github.com/mxw/vim-jsx
-[submodule "bundle/prettier"]
-	path = pack/general/start/prettier
-	url = https://github.com/prettier/vim-prettier
-[submodule "bundle/vim-polyglot"]
-	path = pack/lang/start/vim-polyglot
-	url = https://github.com/sheerun/vim-polyglot
 [submodule "bundle/php.vim"]
 	path = pack/lang/opt/php.vim
 	url = https://github.com/StanAngeloff/php.vim.git
-[submodule "bundle/tern"]
-	path = pack/lang/opt/term-js
-	url = https://github.com/ternjs/tern_for_vim.git
-[submodule "pack/colors/start/vim-monokai"]
-	path = pack/colors/opt/vim-monokai
-	url = https://github.com/crusoexia/vim-monokai.git
 [submodule "pack/general/start/fzf.vim"]
 	path = pack/general/start/fzf.vim
 	url = https://github.com/junegunn/fzf.vim.git
@@ -35,9 +23,6 @@
 [submodule "pack/general/start/vim-sandwich"]
 	path = pack/general/start/vim-sandwich
 	url = https://github.com/machakann/vim-sandwich.git
-[submodule "pack/lang/start/typescript"]
-	path = pack/lang/start/typescript
-	url = https://github.com/leafgarland/typescript-vim.git
 [submodule "pack/general/start/ale"]
 	path = pack/general/start/ale
 	url = https://github.com/dense-analysis/ale.git
@@ -47,9 +32,6 @@
 [submodule "pack/general/start/vim-unpaired"]
 	path = pack/general/start/vim-unpaired
 	url = https://github.com/tpope/vim-unimpaired.git
-[submodule "pack/colors/start/oceanic-next"]
-	path = pack/colors/start/oceanic-next
-	url = https://github.com/mhartington/oceanic-next.git
 [submodule "pack/general/start/vimwiki"]
 	path = pack/general/start/vimwiki
 	url = https://github.com/vimwiki/vimwiki.git
