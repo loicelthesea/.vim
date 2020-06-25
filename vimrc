@@ -205,8 +205,8 @@ augroup completion
   " autocmd FileType javascript     setlocal omnifunc=javascriptcomplete#CompleteJS
   " autocmd FileType python         setlocal omnifunc=python3complete#Complete
    " autocmd FileType php            setlocal omnifunc=phpcomplete#CompletePHP
-   inoremap <expr><C-k>  pumvisible() ? "\<C-p>" : "\<TAB>"
-   inoremap <expr><C-j>  pumvisible() ? "\<C-n>" : "\<TAB>"
+   " inoremap <expr><C-k>  pumvisible() ? "\<C-p>" : "\<TAB>"
+   " inoremap <expr><C-j>  pumvisible() ? "\<C-n>" : "\<TAB>"
 augroup END
 
 " ##############################################
