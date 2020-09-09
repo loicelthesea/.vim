@@ -88,10 +88,9 @@ augroup ALE
 
   let g:ale_linters = {
     \   'javascript': ['eslint', 'tsserver'],
-    \   'typescript': ['eslint', 'tslint', 'tsserver'],
+    \   'typescript': ['eslint', 'tsserver'],
     \   'vue': ['eslint']
     \}
-    "   'vue': ['eslint', 'vls']
 
   let g:ale_fix_on_save = 1
   let g:ale_fixers = {
@@ -105,7 +104,7 @@ augroup ALE
         \}
 
   let g:ale_completion_enabled = 1
-  let g:ale_completion_tsserver_autoimport = 1
+  let g:ale_completion_tsserver_autoimport = 0
 augroup END
 
 " ##############################################
@@ -148,12 +147,15 @@ set winminwidth=20 winminheight=0
 " Statusline
 "- always visible
 set laststatus=2
+set statusline=
+"- Window Number
+set statusline+=%{winnr()}:
 "- Buffer: + 80max filepath + Modified flag + Readonly
-set statusline=%03n:%{expand('%:~:.80f')}%m%r
+set statusline+=%03n:%{expand('%:~:.120f')}%m%r
 "- switch to right
 set statusline+=%=
 "- (cursor,line/total)
-set statusline+=%P\ (%c-%l/%L)
+set statusline+=%03l-%c/%L(%P)
 "- Filetype
 set statusline+=%y
 
@@ -310,7 +312,7 @@ set noequalalways
 " Allow saving of files as sudo when I forgot to start vim using sudo.
 cmap w!! w !sudo tee > /dev/null %
 
-" Map Enter to command line
+" Map Space to command line
 noremap <space> :
 vnoremap <space> :
 
@@ -373,6 +375,10 @@ else
     inoremap <C-Space> <C-x><C-o>
 endif
 
+
+" Easy copy paste on server
+vmap <leader>y :w! /tmp/vitmp<CR>
+nmap <leader>p :r! cat /tmp/vitmp<CR>
 
 " Easy save & quit
 nnoremap <leader>w :<C-u>update!<cr>
