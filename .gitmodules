@@ -35,3 +35,6 @@
 [submodule "pack/general/start/vimwiki"]
 	path = pack/general/opt/vimwiki
 	url = https://github.com/vimwiki/vimwiki.git
+[submodule "pack/general/start/vim-fugitive"]
+	path = pack/general/start/vim-fugitive
+	url = https://github.com/tpope/vim-fugitive

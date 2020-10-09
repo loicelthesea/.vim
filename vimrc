@@ -148,16 +148,18 @@ set winminwidth=20 winminheight=0
 "- always visible
 set laststatus=2
 set statusline=
-"- Window Number
-set statusline+=%{winnr()}:
 "- Buffer: + 80max filepath + Modified flag + Readonly
-set statusline+=%03n:%{expand('%:~:.120f')}%m%r
+set statusline+=%02n:%{expand('%:~:.120f')}%m%r
 "- switch to right
 set statusline+=%=
+" - Git Current branch
+"set statusline+=%{FugitiveStatusline()}
 "- (cursor,line/total)
-set statusline+=%03l-%c/%L(%P)
+set statusline+=\ %03l-%c/%L(%P)
 "- Filetype
 set statusline+=%y
+"- Window Number
+set statusline+=\ %02{winnr()}
 
 " ##############################################
 " #### Search & Replace
@@ -198,7 +200,7 @@ augroup END
 
 augroup completion
   " set omnifunc=syntaxcomplete#Complete
-  " set omnifunc=ale#completion#OmniFunc
+  set omnifunc=ale#completion#OmniFunc
   set completeopt=longest,menuone,preview
   " autocmd!
   " autocmd FileType xml            setlocal omnifunc=xmlcomplete#CompleteTags
