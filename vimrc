@@ -120,7 +120,7 @@ set wildchar=<Tab> wildmenu wildmode=full
 
 " Configure visual vertical line at 100
 set colorcolumn=80
-highlight ColorColumn ctermbg=black guibg=gray18
+highlight ColorColumn ctermbg=black guibg=gray16
 
 " Ignore compiled files
 set wildignore=*.o,*~,*.pyc
@@ -152,7 +152,7 @@ set statusline=
 set statusline+=%02n:%{expand('%:~:.120f')}%m%r
 "- switch to right
 set statusline+=%=
-" - Git Current branch
+"- Git Current branch
 "set statusline+=%{FugitiveStatusline()}
 "- (cursor,line/total)
 set statusline+=\ %03l-%c/%L(%P)
@@ -194,6 +194,11 @@ augroup commenting
   autocmd FileType vim                let b:comment_leader = '" '
 augroup END
 
+augroup PatchDiffLight
+  autocmd!
+  autocmd FileType diff               syntax enable
+augroup END
+
 " ##############################################
 " #### Completion
 " ##############################################
@@ -225,10 +230,8 @@ if has("gui_running")
   set guioptions-=e "
   set guioptions-=r " No Right scroll bar
   set guioptions-=L " No Left scroll bar
-
   set background=dark
   colorscheme one2
-
   " Fonts
   if has("gui_gtk2")
     set guifont=Fira\ Mono\ 11
@@ -237,11 +240,17 @@ if has("gui_running")
   elseif has("gui_win32")
     set guifont=Consolas:h11:cANSI
   endif
-
 else
+  let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
   set t_Co=256
+  set termguicolors
   set background=light
   colorscheme one
+
+  " let g:dracula_inverse=0
+  " let g:dracula_colorterm=0
+  " colorscheme dracula
 endif
 
 
@@ -249,7 +258,7 @@ endif
 " #### Files, backups and undo
 " ##############################################
 
-set encoding=utf8
+set encoding=UTF-8
 " Use Unix as the standard file type
 set ffs=unix,dos,mac
 " Use backup, swap, undo files but set them in a different folder
@@ -384,16 +393,18 @@ nmap <leader>p :r! cat /tmp/vitmp<CR>
 
 " Easy save & quit
 nnoremap <leader>w :<C-u>update!<cr>
+nnoremap <leader>wa :wa<cr>
 nnoremap <leader>q :q<cr>
+nnoremap <leader>d :bd<cr>
 
 " Highlight/Hide current search
 nnoremap <silent> <leader><CR> :set hlsearch! hlsearch?<CR>
 
 " Quickfix & Location List
-nnoremap <C-l><C-n> :lnext<CR>
-nnoremap <C-l><C-p> :lprevious<CR>
-nnoremap <C-c><C-n> :cnext<CR>
-nnoremap <C-c><C-p> :cprevious<CR>
+nnoremap <leader>l :lnext<CR>
+nnoremap <leader>L :lprevious<CR>
+nnoremap <leader>c :cnext<CR>
+nnoremap <leader>C :cprevious<CR>
 
 " FZF
 nnoremap <leader>f :Files<CR>
@@ -402,8 +413,8 @@ nnoremap <leader>h :History<CR>
 nnoremap <leader>H :History:<CR>
 
 " ALE
-nnoremap <leader>L :ALELint<CR>
-nnoremap <leader>F :ALEFix<CR>
+nnoremap <F8> :ALELint<CR>
+nnoremap <F9> :ALEFix<CR>
 nnoremap <F10> :ALEHover<CR>
 nnoremap <F11> :ALEFindReferences<CR>
 nnoremap <F12> :ALEGoToDefinition<CR>

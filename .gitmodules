@@ -38,3 +38,6 @@
 [submodule "pack/general/start/vim-fugitive"]
 	path = pack/general/start/vim-fugitive
 	url = https://github.com/tpope/vim-fugitive
+[submodule "pack/colors/start/dracula"]
+	path = pack/colors/start/dracula
+	url = https://github.com/dracula/vim.git
